@@ -1,8 +1,5 @@
 <?php
-    // check for image size parameter, exit if input is not correct
-  /**
-   *
-   */
+ 
   class queries
   {
 

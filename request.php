@@ -84,9 +84,11 @@
     exit();
   }
 
+  //call image type function with URL parameter
   fset($ftype);
 
-      // image query
+  //call query type function with URL parameter
+  qset($type);
 
   if ($qtype = '04') {
    
