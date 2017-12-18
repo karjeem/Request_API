@@ -2,7 +2,6 @@
 
   require 'connect.php';
 
-
   if (!isset($_REQUEST['id'], $_REQUEST['pid'])) {
     if ($debug) {error_log('DEBUG: no id/pid ' . );}
 
@@ -15,8 +14,8 @@
   }
 
   if (!isset($_REQUEST['qtype'])) {$qtype = 'm';}
-  if (!isset($_REQUEST['ftype']))  {$ftype = '04';}
-  if (!isset($_REQUEST['format'])) {$format = '03';}
+  if (!isset($_REQUEST['ftype']))  {$ftype = '04';}
+  if (!isset($_REQUEST['format'])) {$format = '03';}
   if (!isset($_REQUEST['debug'])) {$debug = 0;}
   if (!isset($_REQUEST['error'])) {$error = 0;}
 
@@ -39,7 +38,7 @@
     }
   }
 
-    //remove unnecessary characters
+  //remove unnecessary characters
   $p_id = str_replace('-', '', $p_id);
  
   if (!ctype_alnum($id) or !ctype_alnum($p_id)) {
@@ -50,6 +49,8 @@
     echo '</html>';
     exit();
   }
+
+  //check if product exists
 
   $product_query = $conn->query("SELECT category_id FROM product WHERE proweb_id = '$p_id'") or die(mysql_error());
   if ($product = mysqli_fetch_array($product_query)) { $iidee = $product['category_id']; }
@@ -83,7 +84,7 @@
     exit();
   }
 
-
+  //fset($ftype);
   if ($ftype = '04') {$img_size = $reg_size;}
   if ($ftype = '06') {$img_size = $thumbnail;}
   if ($ftype = '07') {
@@ -105,6 +106,7 @@
   }
 
       // image query
+
   if ($qtype = '04') {
    
     $superquery = $conn->query("SELECT data FROM media WHERE proweb_id='$p_id' AND datatype='FILE' AND type_id='FCO'") or die(mysql_error());
@@ -131,9 +133,9 @@
                   exit();
               }
   }
-          case 'b':
+    case 'b':
    
-          // product page
+      // product page
    
               echo '<!DOCTYPE html>';
               echo '<html><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8">';
