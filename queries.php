@@ -1,5 +1,5 @@
 <?php
- 
+  require 'request.php';
   class Queries implements request
   {
 

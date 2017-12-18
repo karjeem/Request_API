@@ -2,7 +2,6 @@
 
   interface request
   {
-    require 'connect.php';
 
     if (!isset($_REQUEST['id'], $_REQUEST['pid'])) {
       if ($debug) {error_log('DEBUG: no id/pid ' . );}
@@ -53,24 +52,21 @@
     }
 
     //check if product exists
-
     function product_check() {
 
     }
 
-
     // check customer licensing
-
     function licence_check(){
 
     }
 
-    //call image type function with URL parameter
+    //call image type function with given URL parameter
     function fset(){
 
     }
 
-    //call query type function with URL parameter
+    //call query type function with given URL parameter
     function qset(){
 
     }
