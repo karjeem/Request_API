@@ -3,14 +3,8 @@
   /**
    *
    */
-  class queries extends AnotherClass
+  class queries
   {
-
-    function __construct(argument)
-    {
-      # code...
-    }
-
 
     function fset($fset) {
 
