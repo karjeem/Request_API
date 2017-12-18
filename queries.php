@@ -146,8 +146,6 @@
         echo sqlToXml($xml_query, "Mediatyypit", "Mediatyyppi");
       }
     }
- 
-    mysqli_close($conn);
 
-} 
+  } 
 ?>

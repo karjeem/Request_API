@@ -1,6 +1,7 @@
 <?php
 
   require 'connect.php';
+  include 'queries.php';
 
   if (!isset($_REQUEST['id'], $_REQUEST['pid'])) {
     if ($debug) {error_log('DEBUG: no id/pid ' . );}
@@ -85,9 +86,9 @@
   }
 
   //call image type function with URL parameter
-  fset($ftype);
+  queries->fset($ftype);
 
   //call query type function with URL parameter
-  qset($qtype);      
+  queries->aqset($qtype);      
 
 ?>
