@@ -1,6 +1,6 @@
 <?php
  
-  class queries
+  class Queries implements
   {
 
     function fset($fset) {
