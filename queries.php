@@ -3,6 +3,40 @@
   class Queries implements request
   {
 
+    function product_check() {
+      $product_query = $conn->query("SELECT category_id FROM product WHERE proweb_id = '$p_id'") or die(mysql_error());
+      if ($product = mysqli_fetch_array($product_query)) { $iidee = $product['category_id']; }
+     
+      if (!isset($iidee)) {
+        if ($debug) {error_log('DEBUG: product not found ' . $p_id);}
+        if ($error == 1) {error();}
+
+        $img_not_available = 'kuvaa_ei_saatavilla.png';
+        header('Content-Type: image/png');
+        $eioo = new SimpleImage();
+        $eioo->load($img_not_available);
+        $eioo->resizeToWidth(80);
+        $eioo->output();
+        exit();
+      }
+    }
+
+    function licence_check(){
+      $license_query = $conn->query("SELECT pwcategory_id FROM license WHERE pwcategory_id = '$iidee' AND accno = '$accno'") or die(mysql_error());
+      if ($license = mysqli_fetch_array($license_query)) { $cat_id = $license['pwcategory_id']; }
+      if(!isset($cat_id)) {
+        if ($debug) {error_log('DEBUG: license not found ' . $id . ' ' . $iidee); }
+        if ($error == 1) {error();}
+        $img_not_available = 'kuvaa_ei_saatavilla.png';
+        header('Content-Type: image/png');
+        $eioo = new SimpleImage();
+        $eioo->load($img_not_available);
+        $eioo->resizeToWidth(80);
+        $eioo->output();
+        exit();
+      }
+    }
+
     function fset($fset) {
 
       if ($fset = '04') {$img_size = $reg_size;}
