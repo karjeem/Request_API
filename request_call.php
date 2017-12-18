@@ -10,6 +10,7 @@
 
   $req = new Queries;
 
+  $req->account_check();
   $req->product_check();
   $req->licence_check();
   $req->fset();

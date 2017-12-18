@@ -14,6 +14,18 @@
       exit();
     }
 
+    $qtype_id = $conn->query("SELECT accno FROM customer WHERE hash = '$id'") or die(mysql_error());
+    if ($idquery = mysqli_fetch_array($qtype_id)) {$accno = $idquery['accno'];}
+ 
+    if(!isset($accno)) {
+        if ($debug) {error_log('DEBUG: customer not found ' . $id);}
+        echo '<!DOCTYPE html>';
+        echo '<html><head><title>401 Unauthorized</title></head>';
+        echo '<body><center><h1>401 Unauthorized</h1></center></body>';
+        echo '</html>';
+        exit();
+    }
+
     if (!isset($_REQUEST['qtype'])) {$qtype = 'm';}
     if (!isset($_REQUEST['ftype']))  {$ftype = '04';}
     if (!isset($_REQUEST['format'])) {$format = '03';}
@@ -52,24 +64,16 @@
     }
 
     //check if product exists
-    function product_check() {
+    public function product_check();
 
-    }
-
-    // check customer licensing
-    function licence_check(){
-
-    }
+    //check customer licensing
+    public function licence_check();
 
     //call image type function with given URL parameter
-    function fset(){
-
-    }
+    public function fset();
 
     //call query type function with given URL parameter
-    function qset(){
-
-    }
+    public function qset();
   }
 
 ?>
