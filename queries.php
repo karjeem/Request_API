@@ -1,125 +1,20 @@
 <?php
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
- 
-    require 'connect.php';
-     
-    function __autoload($class_name) {
-        include './' . $class_name . '.php';
-    }
- 
-    $debug = 0;
-    $reg_size = 240;
-    $thumbnail = 130;
- 
-    if (isset($_REQUEST['id'])) {$id = $_REQUEST['id']; }           //customer id
-    if (isset($_REQUEST['pid'])) {$p_id = $_REQUEST['pid']; }       //product id
-    if (isset($_REQUEST['qtype'])) {$qtype = $_REQUEST['qtype']; }  //m=media, b=media & text
-    if (isset($_REQUEST['ftype'])) {$ftype = $_REQUEST['ftype']; }  //type of image (ONIX) 04=cover 06=thumb 07=full
-    if (isset($_REQUEST['format'])) {$format = $_REQUEST['format']; }   //
-    if (isset($_REQUEST['debug'])) {$debug = $_REQUEST['debug']; }  // debug messages 0|1
-    if (isset($_REQUEST['error'])) {$error = $_REQUEST['error']; }
- 
-    // check if mandatory parameters are set
-    if (!isset($id, $p_id)) {
-        if ($debug) {error_log('DEBUG: no id/pid ' . $id . $p_id); }
- 
-    //header($_SERVER['PHP_SELF']);
-        echo '<!DOCTYPE html>';
-        echo '<html><head><title>400 Bad Request</title></head>';
-        echo '<body><center><h1>400 Bad Request</h1></center></body>';
-        echo '</html>';
-        exit();
-    }
- 
-    //remove unnecessary characters from proweb-id
-    $p_id = str_replace('-', '', $p_id);
- 
-    if (!ctype_alnum($id) or !ctype_alnum($p_id)) {
-        if ($debug) {error_log('DEBUG: id/pid not alphanumeric ' . $id . ' ' . $p_id); }
-        echo '<!DOCTYPE html>';
-        echo '<html><head><title>400 Bad Request</title></head>';
-        echo '<body><center><h1>400 Bad Request</h1></center></body>';
-        echo '</html>';
-        exit();
-    }
- 
-    // check if customer id exists
- 
-    $qtype_id = $conn->query("SELECT accno FROM customer WHERE hash = '$id'") or die(mysql_error());
-    if ($idquery = mysqli_fetch_array($qtype_id)) {$accno = $idquery['accno'];}
- 
-    if(!isset($accno)) {
-        if ($debug) {error_log('DEBUG: customer not found ' . $id);}
-        echo '<!DOCTYPE html>';
-        echo '<html><head><title>401 Unauthorized</title></head>';
-        echo '<body><center><h1>401 Unauthorized</h1></center></body>';
-        echo '</html>';
-        exit();
-    }
- 
-    // check if error parameter is set, if not set '0' as default
- 
-    if(!isset($error)) {$error = 0;}
- 
-    if ($error == 1) {
-        function error() {
-            header(' ', true, 404);
-            echo '<!DOCTYPE html>';
-            echo '<html><head><title>404 Not Found</title></head>';
-            echo '<body><center><h1>404 Not Found</h1></center></body>';
-            echo '</html>';
-            exit();
-        }
-         
-    } elseif ($error == 0) {}
- 
-    // check product and category
- 
-    $product_query = $conn->query("SELECT category_id FROM product WHERE proweb_id = '$p_id'") or die(mysql_error());
-    if ($product = mysqli_fetch_array($product_query)) { $iidee = $product['category_id']; }
- 
-    if (!isset($iidee)) {
-        if ($debug) {error_log('DEBUG: product not found ' . $p_id);}
-        if ($error == 1) {error();}
-        $img_not_available = 'kuvaa_ei_saatavilla.png';
- 
-        header('Content-Type: image/png');
- 
-        $eioo = new SimpleImage();
- 
-        $eioo->load($img_not_available);
- 
-        $eioo->resizeToWidth(80);
- 
-        $eioo->output();
-        exit();
-    }
- 
-    // check customer licensing
- 
-    $license_query = $conn->query("SELECT pwcategory_id FROM license WHERE pwcategory_id = '$iidee' AND accno = '$accno'") or die(mysql_error());
-    if ($license = mysqli_fetch_array($license_query)) { $cat_id = $license['pwcategory_id']; }
-    if(!isset($cat_id)) {
-        if ($debug) {error_log('DEBUG: license not found ' . $id . ' ' . $iidee); }
-        if ($error == 1) {error();}
-        $img_not_available = 'kuvaa_ei_saatavilla.png';
-        header('Content-Type: image/png');
-        $eioo = new SimpleImage();
-        $eioo->load($img_not_available);
-        $eioo->resizeToWidth(80);
-        $eioo->output();
-        exit();
-    }
- 
-    // check if optional parameters are set, if not set default values
- 
-    if (!isset($qtype)) {$qtype = 'm';}
-    if (!isset($ftype))  {$ftype = '04';}
-    if (!isset($format)) {$format = '03';}
- 
     // check for image size parameter, exit if input is not correct
- 
+  /**
+   *
+   */
+  class queries extends AnotherClass
+  {
+
+    function __construct(argument)
+    {
+      # code...
+    }
+
+
+  function($fset) {
+
+  }
     switch ($ftype) {
         case '04':
             $img_size = $reg_size;
@@ -291,5 +186,6 @@
     }
  
     mysqli_close($conn);
- 
+
+} 
 ?>
