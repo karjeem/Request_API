@@ -31,7 +31,7 @@
     }
 
     function qset($qset) {
-          // image query
+          // image query for image only -page
       if ($qset = 'm') {
         $superquery = $conn->query("SELECT data FROM media WHERE proweb_id='$p_id' AND datatype='FILE' AND type_id='FCO'") or die(mysql_error());
         if ($debug) {error_log('DEBUG: media '); }
@@ -55,7 +55,7 @@
       }
        
       if ($qset = 'b') {
-        // product page
+        //output and query for product info page
         echo '<!DOCTYPE html>';
         echo '<html><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8">';
         echo '<link rel="stylesheet" type="text/css" href="prodinfo.css" />';

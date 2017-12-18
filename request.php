@@ -84,26 +84,7 @@
     exit();
   }
 
-  //fset($ftype);
-  if ($ftype = '04') {$img_size = $reg_size;}
-  if ($ftype = '06') {$img_size = $thumbnail;}
-  if ($ftype = '07') {
-
-    $f_query = $conn->query("SELECT data FROM media WHERE proweb_id='$p_id' AND datatype='FILE' type_id='FCO'") or die(mysql_error());
- 
-    if ($row = mysqli_fetch_array($f_query)) {
- 
-      $img = $img_path.$row['data'];
-      if(empty($row['data'])) {if ($error == 1) {error();} $img = $img_path.'broken_link_image.gif';}
-      if(file_exists($img)) {} else {if ($error == 1) {error();} $img = $img_path.'broken_link_image.gif';}
- 
-      header('Content-Type: image/jpeg');
-      $onon = new SimpleImage();
-      $onon->load($img);
-      $onon->output();
-      exit();
-    }
-  }
+  fset($ftype);
 
       // image query
 
