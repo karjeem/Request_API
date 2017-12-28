@@ -4,7 +4,17 @@
   {
 
     function account_check() {
-      
+      $qtype_id = $conn->query("SELECT accno FROM customer WHERE hash = '$id'") or die(mysql_error());
+      if ($idquery = mysqli_fetch_array($qtype_id)) {$accno = $idquery['accno'];}
+   
+      if(!isset($accno)) {
+          if ($debug) {error_log('DEBUG: customer not found ' . $id);}
+          echo '<!DOCTYPE html>';
+          echo '<html><head><title>401 Unauthorized</title></head>';
+          echo '<body><center><h1>401 Unauthorized</h1></center></body>';
+          echo '</html>';
+          exit();
+      }
     }
 
     function product_check($prod_id) {
@@ -185,5 +195,17 @@
       }
     }
 
+    function error_is_set() {
+      if ($error != 0) {
+        function error() {
+          header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
+          echo '<!DOCTYPE html>';
+          echo '<html><head><title>404 Not Found</title></head>';
+          echo '<body><center><h1>404 Not Found</h1></center></body>';
+          echo '</html>';
+          exit();
+        }
+      }
+    }
   } 
 ?>

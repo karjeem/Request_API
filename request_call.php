@@ -34,4 +34,5 @@
   $req->licence_check();
   $req->fset($ftype);
   $req->qset($qtype);
+  $req->error_is_set($error);
 ?>
