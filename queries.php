@@ -3,6 +3,10 @@
   class Queries implements request
   {
 
+    function account_check() {
+      
+    }
+
     function product_check($prod_id) {
       $product_query = $conn->query("SELECT category_id FROM product WHERE proweb_id = '$prod_id'") or die(mysql_error());
       if ($product = mysqli_fetch_array($product_query)) { $iidee = $product['category_id']; }

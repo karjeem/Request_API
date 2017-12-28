@@ -3,17 +3,6 @@
   interface request
   {
 
-    if (!isset($_REQUEST['id'], $_REQUEST['pid'])) {
-      if ($debug) {error_log('DEBUG: no id/pid ' . );}
-
-    //header($_SERVER['PHP_SELF']);
-      echo '<!DOCTYPE html>';
-      echo '<html><head><title>400 Bad Request</title></head>';
-      echo '<body><center><h1>400 Bad Request</h1></center></body>';
-      echo '</html>';
-      exit();
-    }
-
     $qtype_id = $conn->query("SELECT accno FROM customer WHERE hash = '$id'") or die(mysql_error());
     if ($idquery = mysqli_fetch_array($qtype_id)) {$accno = $idquery['accno'];}
  
@@ -26,20 +15,6 @@
         exit();
     }
 
-    if (!isset($_REQUEST['qtype'])) {$qtype = 'm';}
-    if (!isset($_REQUEST['ftype']))  {$ftype = '04';}
-    if (!isset($_REQUEST['format'])) {$format = '03';}
-    if (!isset($_REQUEST['debug'])) {$debug = 0;}
-    if (!isset($_REQUEST['error'])) {$error = 0;}
-
-    $id = $_REQUEST['id'];        //customer id
-    $p_id = $_REQUEST['pid'];       //product id
-    $qtype = $_REQUEST['qtype'];  //m=media, b=media & text
-    $ftype = $_REQUEST['ftype'];   //type of image (ONIX) 04=cover 06=thumb 07=full
-    $format = $_REQUEST['format'];   //
-    $debug = $_REQUEST['debug'];  // debug messages 0|1
-    $error = $_REQUEST['error'];  // error parameter
-   
     if ($error != 0) {
       function error() {
         header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");

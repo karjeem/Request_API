@@ -2,6 +2,17 @@
   require 'queries.php';
   require 'connect.php';
 
+  if (!isset($_REQUEST['id'], $_REQUEST['pid'])) {
+    if ($debug) {error_log('DEBUG: no id/pid ' . );}
+
+  //header($_SERVER['PHP_SELF']);
+    echo '<!DOCTYPE html>';
+    echo '<html><head><title>400 Bad Request</title></head>';
+    echo '<body><center><h1>400 Bad Request</h1></center></body>';
+    echo '</html>';
+    exit();
+  }
+
   if (!isset($_REQUEST['qtype'])) {$qtype = 'm';}
   if (!isset($_REQUEST['ftype']))  {$ftype = '04';}
   if (!isset($_REQUEST['format'])) {$format = '03';}
