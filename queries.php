@@ -3,12 +3,12 @@
   class Queries implements request
   {
 
-    function product_check() {
-      $product_query = $conn->query("SELECT category_id FROM product WHERE proweb_id = '$p_id'") or die(mysql_error());
+    function product_check($prod_id) {
+      $product_query = $conn->query("SELECT category_id FROM product WHERE proweb_id = '$prod_id'") or die(mysql_error());
       if ($product = mysqli_fetch_array($product_query)) { $iidee = $product['category_id']; }
      
       if (!isset($iidee)) {
-        if ($debug) {error_log('DEBUG: product not found ' . $p_id);}
+        if ($debug) {error_log('DEBUG: product not found ' . $prod_id);}
         if ($error == 1) {error();}
 
         $img_not_available = 'kuvaa_ei_saatavilla.png';
