@@ -3,18 +3,33 @@
   class Queries implements request
   {
 
+    //implementation of interface functions
+
     function account_check() {
       $qtype_id = $conn->query("SELECT accno FROM customer WHERE hash = '$id'") or die(mysql_error());
       if ($idquery = mysqli_fetch_array($qtype_id)) {$accno = $idquery['accno'];}
    
       if(!isset($accno)) {
-          if ($debug) {error_log('DEBUG: customer not found ' . $id);}
-          echo '<!DOCTYPE html>';
-          echo '<html><head><title>401 Unauthorized</title></head>';
-          echo '<body><center><h1>401 Unauthorized</h1></center></body>';
-          echo '</html>';
-          exit();
+        if ($debug) {error_log('DEBUG: customer not found ' . $id);}
+        echo '<!DOCTYPE html>';
+        echo '<html><head><title>401 Unauthorized</title></head>';
+        echo '<body><center><h1>401 Unauthorized</h1></center></body>';
+        echo '</html>';
+        exit();
       }
+    }
+
+    function alnum_check(){
+      $p_id = str_replace('-', '', $p_id);
+     
+      if (!ctype_alnum($id) or !ctype_alnum($p_id)) {
+        if ($debug) {error_log('DEBUG: id/pid not alphanumeric ' . $id . ' ' . $p_id); }
+        echo '<!DOCTYPE html>';
+        echo '<html><head><title>400 Bad Request</title></head>';
+        echo '<body><center><h1>400 Bad Request</h1></center></body>';
+        echo '</html>';
+        exit();
+      }
     }
 
     function product_check($prod_id) {

@@ -2,8 +2,9 @@
   require 'queries.php';
   require 'connect.php';
 
+  //check if mandatory parameters are set
+
   if (!isset($_REQUEST['id'], $_REQUEST['pid'])) {
-    if ($debug) {error_log('DEBUG: no id/pid ' . );}
 
   //header($_SERVER['PHP_SELF']);
     echo '<!DOCTYPE html>';
@@ -13,6 +14,8 @@
     exit();
   }
 
+  //check if optional parameters are set, if not set standard values
+
   if (!isset($_REQUEST['qtype'])) {$qtype = 'm';}
   if (!isset($_REQUEST['ftype']))  {$ftype = '04';}
   if (!isset($_REQUEST['format'])) {$format = '03';}
@@ -20,6 +23,8 @@
   if (!isset($_REQUEST['error'])) {$error = 0;}
 
   $req = new Queries;
+
+  //set URL parameters into variables
 
   $id = $_REQUEST['id'];        //customer id
   $p_id = $_REQUEST['pid'];       //product id
@@ -29,7 +34,10 @@
   $debug = $_REQUEST['debug'];  // debug messages 0|1
   $error = $_REQUEST['error'];  // error parameter
 
+  //call functions with given parameters
+
   $req->account_check();
+  $req->alnum_check($p_id);
   $req->product_check($p_id);
   $req->licence_check();
   $req->fset($ftype);
